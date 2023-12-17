@@ -1,7 +1,0 @@
-{
-    "code-runner.clearPreviousOutput": true,
-    "code-runner.executorMap": {
-        "python": "py c:\\Users\\blaze\\d\\Python\\ClickGame2\\main.py"
-    },
-    "code-runner.saveAllFilesBeforeRun": true
-}
