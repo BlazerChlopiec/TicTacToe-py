@@ -27,6 +27,10 @@ def sort_objects():
     objects = sorted(objects, key=lambda obj: obj.z_order if hasattr(obj, "z_order") else 0)
 
 header_text = ""
+def header_show_turn():
+    global header_text
+    header_text = "Place a Circle" if cross_turn == False else "Place a Cross"
+
 win_state = False
 cross_turn = False
 cross_tiles = []
@@ -93,9 +97,10 @@ def tictactoe_button(tile, win_karma):
 
         check_win()
 
+        if not win_state: header_show_turn()
+
     button.on_click = click
     objects.append(button)
-    return button
 
 #top
 tictactoe_button((-1, -1), 4)
@@ -104,7 +109,7 @@ tictactoe_button((1, -1), 2)
 
 #middle
 tictactoe_button((-1, 0), 3)
-print(tictactoe_button((0, 0), 5).pos.__str__())
+tictactoe_button((0, 0), 5)
 tictactoe_button((1, 0), 7)
 
 #bottom
@@ -115,10 +120,12 @@ tictactoe_button((1, 1), 6)
 
 def reset_click(b):
     global win_state 
+    global cross_turn
     global header_text
 
     win_state = False
-    header_text = ""
+    cross_turn = False
+    header_show_turn()
 
     for c in circle_tiles:
         if hasattr(c, "has_been_pressed"): c.has_been_pressed = False
@@ -140,6 +147,7 @@ debug = Debug(font)
 objects.append(debug)
 #
 
+header_show_turn()
 sort_objects()
 
 running = True
@@ -156,15 +164,18 @@ while running:
 
     cursor.pos = Input.mouse_pos()
 
+    # header
+    header_col = MyColor.red if not cross_turn else MyColor.green
+    header_rendered = font.render(header_text, True, MyColor.white if not win_state else header_col)
+    header_rect = header_rendered.get_rect(center=(res[0]/2, 30))
+    display.blit(header_rendered, header_rect)
+    #
+    
     for s in objects:
         s.update()
     
     for s in objects:
         s.draw(display)
-
-    header_rendered = font.render(header_text, True, MyColor.red if not cross_turn else MyColor.green)
-    header_rect = header_rendered.get_rect(center=(res[0]/2, 30))
-    display.blit(header_rendered, header_rect)
 
     Input.after_update()
 
