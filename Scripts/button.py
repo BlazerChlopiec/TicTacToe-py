@@ -32,7 +32,7 @@ class Button(Sprite):
 
     @override
     def draw(self, display, color = MyColor.clear):
-        super().draw(display, Color(80,80,80) if self.hovering else Color(40,40,40))
+        super().draw(display, MyColor.button_hover if self.hovering else MyColor.button_base)
 
         rendered_text = self.font.render(self.text, True, self.text_color)
         text_rect = rendered_text.get_rect(center = (self.pos[0] + self.rect.width/2, self.pos[1] + self.rect.height/2))

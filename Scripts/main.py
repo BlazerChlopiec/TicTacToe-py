@@ -10,12 +10,14 @@ from itertools import combinations
 pygame.init()
 pygame.mouse.set_visible(0)
 
-res = (800, 450)
+res = (1024, 576)
 display = pygame.display.set_mode((res[0], res[1]))
 pygame.display.set_caption("jaja")
 
 font = pygame.font.Font(None, 25)
-button_font = pygame.font.Font(None, 75)
+button_font = pygame.font.Font(None, 100)
+header_font = pygame.font.Font(None, 35)
+
 clock = pygame.time.Clock()
 
 spr = "Sprites" # define the sprite folder
@@ -81,23 +83,25 @@ def tictactoe_button(tile, win_karma):
 
     def click(b):
         global cross_turn
+        global header_text
 
         if hasattr(b, "has_been_pressed") and b.has_been_pressed == True or win_state == True: return
         b.has_been_pressed = True
 
         if cross_turn:
             b.text = "X"
-            b.text_color = MyColor.red
+            b.text_color = MyColor.cross
             cross_tiles.append(b)
         else:
             b.text = "O"
-            b.text_color = MyColor.green
+            b.text_color = MyColor.circle
             circle_tiles.append(b)
         cross_turn = not cross_turn
 
         check_win()
 
         if not win_state: header_show_turn()
+        if circle_tiles.__len__() + cross_tiles.__len__() == 9: header_text = "DRAW"
 
     button.on_click = click
     objects.append(button)
@@ -137,9 +141,8 @@ def reset_click(b):
 
     circle_tiles.clear()
     cross_tiles.clear()
-
 reset_size = (180,40)
-reset_button = Button(font, "Reset", os.path.join(spr, "button.png"), (res[0]/2 - reset_size[0]/2, res[1]-35 - reset_size[1]/2), reset_size)
+reset_button = Button(header_font, "Reset", os.path.join(spr, "button.png"), (res[0]/2 - reset_size[0]/2, res[1]-35 - reset_size[1]/2), reset_size)
 reset_button.on_click = reset_click
 objects.append(reset_button)
 
@@ -160,13 +163,13 @@ while running:
 
     if Input.key(pygame.K_ESCAPE): running = False
 
-    display.fill((20, 20, 20))
+    display.fill(MyColor.background)
 
     cursor.pos = Input.mouse_pos()
 
     # header
-    header_col = MyColor.red if not cross_turn else MyColor.green
-    header_rendered = font.render(header_text, True, MyColor.white if not win_state else header_col)
+    header_col = MyColor.cross if not cross_turn else MyColor.circle
+    header_rendered = header_font.render(header_text, True, MyColor.white if not win_state else header_col)
     header_rect = header_rendered.get_rect(center=(res[0]/2, 30))
     display.blit(header_rendered, header_rect)
     #
