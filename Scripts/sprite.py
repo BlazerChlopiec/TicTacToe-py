@@ -8,7 +8,7 @@ class Sprite(Object):
     def __init__(self, path: str, pos: tuple, size: tuple, z_order: int = 0):
         self.pos = pos
         self.size = size
-        self.image = pygame.transform.scale(pygame.image.load(path), size)
+        self.image = pygame.transform.scale(pygame.image.load(path), size).convert_alpha()
         self.rect = pygame.Rect(pos, size)
         self.z_order = z_order
 
