@@ -22,7 +22,7 @@ header_font = pygame.font.Font(None, 35)
 
 clock = pygame.time.Clock()
 
-spr = "src\sprites" # define the sprite folder
+spr = os.path.join("src", "sprites") # define the sprite folder
 
 objects = []
 
