@@ -1,11 +1,16 @@
 import pygame
 import os
+import sys
+from itertools import combinations
+
+sys.path.insert(1, "Scripts")
+
 from sprite import Sprite
 from myColor import MyColor
 from debug import Debug
 from button import Button
 from input import Input
-from itertools import combinations
+
 
 pygame.init()
 pygame.mouse.set_visible(0)
@@ -20,7 +25,7 @@ header_font = pygame.font.Font(None, 35)
 
 clock = pygame.time.Clock()
 
-spr = os.path.join(os.getcwd(), "Sprites") # define the sprite folder
+spr = os.path.join("Sprites") # define the sprite folder
 
 objects = []
 
