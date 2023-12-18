@@ -12,7 +12,7 @@ pygame.mouse.set_visible(0)
 
 res = (1024, 576)
 display = pygame.display.set_mode((res[0], res[1]))
-pygame.display.set_caption("jaja")
+pygame.display.set_caption("TicTacToe")
 
 font = pygame.font.Font(None, 25)
 button_font = pygame.font.Font(None, 100)
@@ -46,8 +46,8 @@ objects.append(cursor)
 def tictactoe_button(tile, win_karma):
     spacing = (110, 110)
     sprite_size = (100, 100)
-    button = Button(button_font, "", os.path.join(spr, "button.png"), (res[0]/2 - sprite_size[0]/2 + (spacing[0] * tile[0]),
-                                                                       res[1]/2 - sprite_size[1]/2 + (spacing[1] * tile[1])), sprite_size)
+    button = Button(button_font, "", os.path.join(spr, "rounded_button.png"), (res[0]/2 - sprite_size[0]/2 + (spacing[0] * tile[0]),
+                                                                               res[1]/2 - sprite_size[1]/2 + (spacing[1] * tile[1])), sprite_size)
     button.win_karma = win_karma
 
     def check_win():
