@@ -1,9 +1,7 @@
-import pygame
-import os
-import sys
+import pygame, os, sys
 from itertools import combinations
 
-sys.path.insert(1, "Scripts")
+sys.path.append("src")
 
 from sprite import Sprite
 from myColor import MyColor
@@ -11,12 +9,11 @@ from debug import Debug
 from button import Button
 from input import Input
 
-
 pygame.init()
 pygame.mouse.set_visible(0)
 
-res = (1024, 576)
-display = pygame.display.set_mode((res[0], res[1]))
+WINDOWS_RES = (1024, 576)
+display = pygame.display.set_mode((WINDOWS_RES[0], WINDOWS_RES[1]))
 pygame.display.set_caption("TicTacToe")
 
 font = pygame.font.Font(None, 25)
@@ -25,7 +22,7 @@ header_font = pygame.font.Font(None, 35)
 
 clock = pygame.time.Clock()
 
-spr = os.path.join("Sprites") # define the sprite folder
+spr = "src\sprites" # define the sprite folder
 
 objects = []
 
@@ -51,8 +48,8 @@ objects.append(cursor)
 def tictactoe_button(tile, win_karma):
     spacing = (110, 110)
     sprite_size = (100, 100)
-    button = Button(button_font, "", os.path.join(spr, "rounded_button.png"), (res[0]/2 - sprite_size[0]/2 + (spacing[0] * tile[0]),
-                                                                               res[1]/2 - sprite_size[1]/2 + (spacing[1] * tile[1])), sprite_size)
+    button = Button(button_font, "", os.path.join(spr, "rounded_button.png"), (WINDOWS_RES[0]/2 - sprite_size[0]/2 + (spacing[0] * tile[0]),
+                                                                               WINDOWS_RES[1]/2 - sprite_size[1]/2 + (spacing[1] * tile[1])), sprite_size)
     button.win_karma = win_karma
 
     def check_win():
@@ -147,7 +144,7 @@ def reset_click(b):
     circle_tiles.clear()
     cross_tiles.clear()
 reset_size = (180,40)
-reset_button = Button(header_font, "Reset", os.path.join(spr, "button.png"), (res[0]/2 - reset_size[0]/2, res[1]-35 - reset_size[1]/2), reset_size)
+reset_button = Button(header_font, "Reset", os.path.join(spr, "button.png"), (WINDOWS_RES[0]/2 - reset_size[0]/2, WINDOWS_RES[1]-35 - reset_size[1]/2), reset_size)
 reset_button.on_click = reset_click
 objects.append(reset_button)
 
@@ -175,7 +172,7 @@ while running:
     # header
     header_col = MyColor.cross if not cross_turn else MyColor.circle
     header_rendered = header_font.render(header_text, True, MyColor.white if not win_state else header_col)
-    header_rect = header_rendered.get_rect(center=(res[0]/2, 30))
+    header_rect = header_rendered.get_rect(center=(WINDOWS_RES[0]/2, 30))
     display.blit(header_rendered, header_rect)
     #
     

@@ -2,7 +2,6 @@ import pygame
 from sprite import Sprite
 from myColor import MyColor
 from overrides import override
-from pygame import Color
 from input import Input
 
 class Button(Sprite):
