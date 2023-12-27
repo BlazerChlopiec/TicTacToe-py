@@ -16,8 +16,6 @@ class Debug(Object):
         
     @override
     def draw(self, display, color = MyColor.clear):
-        text = self.font.render(Input.mouse_pos().__str__(), True, MyColor.white)
-        display.blit(text, (20,20))
-
-        text = self.font.render(f"Debug: {Debug.drawRect.__str__()}", True, MyColor.white)
-        display.blit(text, (20,40))
+        display.blit(self.font.render(Input.mouse_pos().__str__(), True, MyColor.white), (20,20))
+        display.blit(self.font.render(f"Debug: {Debug.drawRect.__str__()}", True, MyColor.white), (20,40))
+        display.blit(self.font.render("Use TAB", True, MyColor.white), (20, 60))
